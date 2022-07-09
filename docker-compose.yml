@@ -59,6 +59,7 @@ services:
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      PROXY_ADDRESS_FORWARDING: true
     ports:
       - '8080:8080'
     depends_on:
@@ -74,6 +75,17 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=password
         - POSTGRES_DB=keycloak-db
+
+  reverse-proxy:
+    image: nginx
+    container_name: reverse-proxy
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+
 
   datadog:
     image: datadog/agent
