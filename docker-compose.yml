@@ -5,7 +5,7 @@ services:
     container_name: "post-api"
     image: ghcr.io/manumasjoan/post-service:master
     ports:
-      - '8082:8082'
+      - '8082:8080'
     environment:
       DB_USER: postgres
       DB_PASSWORD: password
@@ -66,7 +66,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: password
       DB_VENDOR: postgres
-      PROXY_ADDRESS_FORWARDING: "true"
+      PROXY_ADDRESS_FORWARDING: true
 
     ports:
       - '8080:8080'
