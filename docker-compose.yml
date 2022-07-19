@@ -14,6 +14,8 @@ services:
       DB_PORT: 5423
       KEYCLOAK_HOST: reverse-proxy
       KEYCLOAK_PORT: 80
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "java", "service": "post-api", "log_processing_rules": [{"type": "multi_line", "name": "log_start_with_date", "pattern" : "\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"}]}]'
 
   post-db:
     image: postgres:12.9
@@ -41,6 +43,8 @@ services:
       DB_PORT: 5423
       KEYCLOAK_HOST: reverse-proxy
       KEYCLOAK_PORT: 80
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "java", "service": "follow-api", "log_processing_rules": [{"type": "multi_line", "name": "log_start_with_date", "pattern" : "\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"}]}]'
 
   follow-db:
     image: postgres:12.9
@@ -97,6 +101,8 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/letsencrypt/:ro
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "nginx", "service": "reverse-proxy", "log_processing_rules": [{"type": "multi_line", "name": "log_start_with_date", "pattern" : "\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"}]}]'
 
   certbot:
     image: certbot/certbot:latest
