@@ -92,7 +92,7 @@ services:
       - keycloak_data:/var/lib/postgresql/data
 
   reverse-proxy:
-    image: ghcr.io/tefiporacchia/jibberjabberui:prod
+    image: ghcr.io/tefiporacchia/jibberjabberui:dev
     container_name: reverse-proxy
     ports:
       - 80:80
